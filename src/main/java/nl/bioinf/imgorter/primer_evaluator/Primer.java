@@ -1,12 +1,11 @@
 package nl.bioinf.imgorter.primer_evaluator;
 
 import java.util.HashMap;
-import java.util.*;
 
 public class Primer {
     private final String sequence;
     private String baseSequence;
-    private Map baseCount;
+    private HashMap<Character, Integer> baseCount;
     private double gcPercentage;
     private int meltingTemp;
     private int maxHomopolymerLength;
@@ -33,11 +32,11 @@ public class Primer {
         return baseSequence;
     }
 
-    public void setBaseCount(Map baseCount){
+    public void setBaseCount(HashMap<Character, Integer> baseCount){
         this.baseCount = baseCount;
     }
 
-    public Map getBaseCount() {
+    public HashMap<Character, Integer> getBaseCount() {
         return baseCount;
     }
 

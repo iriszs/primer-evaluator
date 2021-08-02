@@ -1,14 +1,13 @@
 package nl.bioinf.imgorter.primer_evaluator;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Calculator {
 
-    public Map calculateBaseCount(String baseSequence){
+    public HashMap<Character, Integer> calculateBaseCount(String baseSequence){
         System.out.println("In the calculate base count");
         System.out.println(baseSequence);
-        Map baseCount = new HashMap ();
+        HashMap<Character, Integer> baseCount = new HashMap ();
         char baseA = 'A';
         char baseC = 'C';
         char baseT = 'T';
@@ -41,7 +40,7 @@ public class Calculator {
         return baseCount;
     }
 
-    public double calculateGC(Map baseCount){
+    public double calculateGC(HashMap<Character, Integer> baseCount){
         System.out.println("basecount map" + baseCount);
 
         double GCPercentage;
@@ -62,14 +61,14 @@ public class Calculator {
         return GCPercentage;
     }
 
-    public int calculateMeltingTemp(Map baseCount){
+    public int calculateMeltingTemp(HashMap<Character, Integer> baseCount){
 
         int meltingTemp;
 
-        int countA = (int) baseCount.get('A');
-        int countC = (int) baseCount.get('C');
-        int countT = (int) baseCount.get('T');
-        int countG = (int) baseCount.get('G');
+        int countA = baseCount.get('A');
+        int countC = baseCount.get('C');
+        int countT = baseCount.get('T');
+        int countG = baseCount.get('G');
 
         meltingTemp = (int) (4* (countG + countC)) + (2* (countA + countT));
 
