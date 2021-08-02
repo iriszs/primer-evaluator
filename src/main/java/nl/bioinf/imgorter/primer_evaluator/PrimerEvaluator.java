@@ -27,15 +27,22 @@ public class PrimerEvaluator {
         // Creating a new calculator object to calculate all characteristics of a primer
         Calculator cal = new Calculator();
         // Count individual bases and put in a hashmap
-        p.setBaseCount(cal.calculateBaseCount(p.getBaseSequence()));
+        p.setBaseCount(cal.calculateNucleotideCount(p.getBaseSequence()));
         // Calculate GC percentage of primer using the individual base counts
+        // and set result in primer object
         p.setGcPercentage(cal.calculateGC(p.getBaseCount()));
-        // Set result in primer object
+        // print result
         p.getGcPercentage();
         // Calculate melting temperature of the primer using the individual base counts
+        // and set result in primer object
         p.setMeltingTemp(cal.calculateMeltingTemp(p.getBaseCount()));
-        // Set result in primer object
+        // print result
         p.getMeltingTemp();
+        // Calculate the maximum homopolymer lenght in a hashmap using the individual base counts
+        // and set result in primer object
+        p.setHomopolymerLength(cal.calculateMaxHomopolymerLength(p.getBaseSequence()));
+        // print result
+        p.getMaxHomopolymerLength();
 
 
     }

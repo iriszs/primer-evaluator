@@ -8,7 +8,7 @@ public class Primer {
     private HashMap<Character, Integer> baseCount;
     private double gcPercentage;
     private int meltingTemp;
-    private int maxHomopolymerLength;
+    private HashMap <Character, Integer> maxHomopolymerLength;
     private int inter_identity;
     private int intra_identity;
 
@@ -56,6 +56,16 @@ public class Primer {
         System.out.println("The melting temperature of this primer is: " + meltingTemp);
 
         return meltingTemp;
+    }
+
+    public void setHomopolymerLength(HashMap <Character, Integer> maxHomopolymerLength){
+        this.maxHomopolymerLength = maxHomopolymerLength;
+
+    }
+
+    public HashMap<Character, Integer> getMaxHomopolymerLength() {
+        System.out.println("The map with maximum homopolymer lenght is " + maxHomopolymerLength);
+        return maxHomopolymerLength;
     }
 
 }
