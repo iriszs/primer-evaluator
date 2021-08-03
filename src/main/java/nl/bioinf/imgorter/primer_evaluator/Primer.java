@@ -5,10 +5,10 @@ import java.util.HashMap;
 public class Primer {
     private final String sequence;
     private String baseSequence;
-    private HashMap<Character, Integer> baseCount;
+    private HashMap<Nucleotide, Integer> baseCount;
     private double gcPercentage;
     private int meltingTemp;
-    private HashMap <Character, Integer> maxHomopolymerLength;
+    private HashMap <Nucleotide, Integer> maxHomopolymerLength;
     private int inter_identity;
     private int intra_identity;
 
@@ -32,11 +32,11 @@ public class Primer {
         return baseSequence;
     }
 
-    public void setBaseCount(HashMap<Character, Integer> baseCount){
+    public void setBaseCount(HashMap<Nucleotide, Integer> baseCount){
         this.baseCount = baseCount;
     }
 
-    public HashMap<Character, Integer> getBaseCount() {
+    public HashMap<Nucleotide, Integer> getBaseCount() {
         return baseCount;
     }
 
@@ -58,12 +58,12 @@ public class Primer {
         return meltingTemp;
     }
 
-    public void setHomopolymerLength(HashMap <Character, Integer> maxHomopolymerLength){
+    public void setHomopolymerLength(HashMap <Nucleotide, Integer> maxHomopolymerLength){
         this.maxHomopolymerLength = maxHomopolymerLength;
 
     }
 
-    public HashMap<Character, Integer> getMaxHomopolymerLength() {
+    public HashMap<Nucleotide, Integer> getMaxHomopolymerLength() {
         System.out.println("The map with maximum homopolymer lenght is " + maxHomopolymerLength);
         return maxHomopolymerLength;
     }

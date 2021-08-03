@@ -4,14 +4,16 @@ import java.util.HashMap;
 
 public class Calculator {
 
-    public HashMap<Character, Integer> calculateNucleotideCount(String baseSequence){
-        System.out.println("In the calculate base count");
+    /**
+     * Counts the number of nucleotides in the given primer
+     *
+     * @param baseSequence The base sequence (sequence without 5'- and 3-') to calculate from
+     * @return Returns a HashMap where the key is the counted nucleotide and the value the occurence count
+     */
+    public HashMap<Nucleotide, Integer> CountNucleotides(String baseSequence){
+        System.out.println("In the calculate nucleotides");
         System.out.println(baseSequence);
-        HashMap<Character, Integer> nucCount = new HashMap ();
-        char nucA = 'A';
-        char nucC = 'C';
-        char nucT = 'T';
-        char nucG = 'G';
+        HashMap<Nucleotide, Integer> nucCount = new HashMap ();
 
         int countA = 0;
         int countC = 0;
@@ -19,35 +21,42 @@ public class Calculator {
         int countG = 0;
 
         for (int i = 0; i < baseSequence.length(); i++) {
-            if (baseSequence.charAt(i) == nucA) {
+            if (baseSequence.charAt(i) == 'A') {
                 countA++;
             }
-            if (baseSequence.charAt(i) == nucC) {
+            if (baseSequence.charAt(i) == 'C') {
                 countC++;
             }
-            if (baseSequence.charAt(i) == nucT) {
+            if (baseSequence.charAt(i) == 'T') {
                 countT++;
             }
-            if (baseSequence.charAt(i) == nucG) {
+            if (baseSequence.charAt(i) == 'G') {
                 countG++;
             }
         }
-        nucCount.put(nucA, countA);
-        nucCount.put(nucC, countC);
-        nucCount.put(nucT, countT);
-        nucCount.put(nucG, countG);
+        nucCount.put(Nucleotide.A, countA);
+        nucCount.put(Nucleotide.C, countC);
+        nucCount.put(Nucleotide.T, countT);
+        nucCount.put(Nucleotide.G, countG);
 
         return nucCount;
     }
 
-    public double calculateGC(HashMap<Character, Integer> baseCount){
-        System.out.println("basecount map" + baseCount);
+    /**
+     * Calculates the percentage of GC nucleotides in the given
+     * Uses the formula: number of G and C nucleotides / number of all nucleotides * 100%
+     * @param nucCount the HasMap containing the occurence counts of each nucleotide
+     * @return Returns the GCpercentage as a double
+     */
+
+    public double calculateGC(HashMap<Nucleotide, Integer> nucCount){
+        System.out.println("basecount map" + nucCount);
 
         double GCPercentage;
-        int countA = (int) baseCount.get('A');
-        int countC = (int) baseCount.get('C');
-        int countT = (int) baseCount.get('T');
-        int countG = (int) baseCount.get('G');
+        int countA = nucCount.get(Nucleotide.A);
+        int countC = nucCount.get(Nucleotide.C);
+        int countT = nucCount.get(Nucleotide.T);
+        int countG = nucCount.get(Nucleotide.G);
 
         System.out.println("Count of A bases: " + countA);
         System.out.println("Count of C bases: " + countC);
@@ -61,14 +70,21 @@ public class Calculator {
         return GCPercentage;
     }
 
-    public int calculateMeltingTemp(HashMap<Character, Integer> baseCount){
+    /**
+     * Calculates the melting temperature of the given primer
+     * Uses the formula: (4 * the number of G and C nucleotides) + (2 * the number of A and T nucleotides)
+     * @param nucCount the HasMap containing the occurence counts of each nucleotide
+     * @return Returns the melting temperature as an integer (temperature in Celcius)
+     */
+
+    public int calculateMeltingTemp(HashMap<Nucleotide, Integer> nucCount){
 
         int meltingTemp;
 
-        int countA = baseCount.get('A');
-        int countC = baseCount.get('C');
-        int countT = baseCount.get('T');
-        int countG = baseCount.get('G');
+        int countA = nucCount.get(Nucleotide.A);
+        int countC = nucCount.get(Nucleotide.C);
+        int countT = nucCount.get(Nucleotide.T);
+        int countG = nucCount.get(Nucleotide.G);
 
         meltingTemp = (int) (4* (countG + countC)) + (2* (countA + countT));
         System.out.println("melting temp in the function = " + meltingTemp);
@@ -76,15 +92,24 @@ public class Calculator {
         return meltingTemp;
     }
 
-    public HashMap<Character, Integer> calculateMaxHomopolymerLength(String baseSeq) {
-        final HashMap<Character, Integer> result = new HashMap<>();
+    /**
+     * Calculates the maximum homopolymer lenght (longest sequence of continuous nucleotides)
+     * For the input "AAACCCGGGTTTTAAAA", A = 4, C = 3, G = 3, T = 4
+     *
+     * @param baseSequence The base sequence (sequence without 5'- and 3-') to calculate from
+     * @return Returns a HashMap where the key is the counted nucleotide and the value is the continuous occurence count
+     * Returns a HashMap instead of integer to have more information stored to request later
+     * The Evaluator class will return the nucleotide with the highest value.
+     */
+    public HashMap<Nucleotide, Integer> calculateMaxHomopolymerLength(String baseSequence) {
+        final HashMap<Nucleotide, Integer> homopolymerLenghts = new HashMap<>();
 
         int aCounter = 0;
         int cCounter = 0;
         int gCounter = 0;
         int tCounter = 0;
 
-        char[] baseSeqChars = baseSeq.toCharArray();
+        char[] baseSeqChars = baseSequence.toCharArray();
         char prevChar = 0;
 
         for(int i = 0; i < baseSeqChars.length; i++) {
@@ -108,19 +133,19 @@ public class Calculator {
             } else {
                 switch(prevChar) {
                     case 'A':
-                        insertIfLarger(result, prevChar, ++aCounter);
+                        insertIfLarger(homopolymerLenghts, prevChar, ++aCounter);
                         aCounter = 0;
                         break;
                     case 'C':
-                        insertIfLarger(result, prevChar, ++cCounter);
+                        insertIfLarger(homopolymerLenghts, prevChar, ++cCounter);
                         cCounter = 0;
                         break;
                     case 'G':
-                        insertIfLarger(result, prevChar, ++gCounter);
+                        insertIfLarger(homopolymerLenghts, prevChar, ++gCounter);
                         gCounter = 0;
                         break;
                     case 'T':
-                        insertIfLarger(result, prevChar, ++tCounter);
+                        insertIfLarger(homopolymerLenghts, prevChar, ++tCounter);
                         tCounter = 0;
                         break;
                 }
@@ -131,16 +156,16 @@ public class Calculator {
 
         switch(prevChar) {
             case 'A':
-                insertIfLarger(result, prevChar, ++aCounter);
+                insertIfLarger(homopolymerLenghts, prevChar, ++aCounter);
                 break;
             case 'C':
-                insertIfLarger(result, prevChar, ++cCounter);
+                insertIfLarger(homopolymerLenghts, prevChar, ++cCounter);
                 break;
             case 'G':
-                insertIfLarger(result, prevChar, ++gCounter);
+                insertIfLarger(homopolymerLenghts, prevChar, ++gCounter);
                 break;
             case 'T':
-                insertIfLarger(result, prevChar, ++tCounter);
+                insertIfLarger(homopolymerLenghts, prevChar, ++tCounter);
                 break;
         }
 
@@ -149,18 +174,18 @@ public class Calculator {
         System.out.println("g Counter = " + gCounter);
         System.out.println("t Counter = " + tCounter);
 
-        return result;
+        return homopolymerLenghts;
     }
 
-    private void insertIfLarger(final HashMap<Character, Integer> polymerMap, char nuc, int nucCount) {
+    private void insertIfLarger(final HashMap<Nucleotide, Integer> polymerMap, char nuc, int nucCount) {
         Integer currentCount = polymerMap.get(nuc);
         if(currentCount == null) {
-            polymerMap.put(nuc, nucCount);
+            polymerMap.put(Nucleotide.fromChar(nuc), nucCount);
             return;
         }
 
         if(nucCount > currentCount) {
-            polymerMap.put(nuc, nucCount);
+            polymerMap.put(Nucleotide.fromChar(nuc), nucCount);
         }
     }
 

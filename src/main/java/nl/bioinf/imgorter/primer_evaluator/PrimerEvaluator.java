@@ -27,7 +27,7 @@ public class PrimerEvaluator {
         // Creating a new calculator object to calculate all characteristics of a primer
         Calculator cal = new Calculator();
         // Count individual bases and put in a hashmap
-        p.setBaseCount(cal.calculateNucleotideCount(p.getBaseSequence()));
+        p.setBaseCount(cal.CountNucleotides(p.getBaseSequence()));
         // Calculate GC percentage of primer using the individual base counts
         // and set result in primer object
         p.setGcPercentage(cal.calculateGC(p.getBaseCount()));
