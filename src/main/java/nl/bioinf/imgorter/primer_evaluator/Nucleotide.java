@@ -43,6 +43,17 @@ public enum Nucleotide {
     }
 
     /**
+     * Determines the complement string of a primer
+     * Example: ATCG will become TAGC
+     * @return Complement String of primer
+     */
+    public Nucleotide getComplement() {
+        return Nucleotide.fromChar(this.pairsWith);
+
+    }
+
+
+    /**
      * Get an instance of nucleotide from a character.
      * @param c The character to derive a nucleotide from
      * @return Returns the nucleotide associated with the provided char, or null if the provided char matches no nucleotide
@@ -74,4 +85,6 @@ public enum Nucleotide {
     public boolean equals(Nucleotide n) {
         return this.nuc == n.getCharacter();
     }
+
+
 }

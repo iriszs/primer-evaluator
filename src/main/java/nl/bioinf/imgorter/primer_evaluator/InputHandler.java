@@ -18,7 +18,7 @@ public class InputHandler {
         this.inputfile = file;
     }
 
-    public String ReadFile() throws FileNotFoundException {
+    public String readFile() throws FileNotFoundException {
         FileReader fr = null;
         BufferedReader br = null;
         String sequence = null;

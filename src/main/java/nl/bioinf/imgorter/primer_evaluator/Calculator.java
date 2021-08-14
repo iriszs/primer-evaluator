@@ -189,4 +189,61 @@ public class Calculator {
         }
     }
 
+    /**
+     * Calculates the Intermolecular identity of two primers
+     * Intermolecular identity is the number of nucleotides that match to the two primers
+     *
+     * @param pA primer A (forward primer)
+     * @param pB primer B (reverse primer)
+     * @return Returns the number of nucleotides that matches to the end of the other primer
+     *
+     */
+    public int calculateIntermolecularIdentity(Primer pA, Primer pB) {
+        Nucleotide[] aNucleotides = pA.getNucleotides();
+        // if entered correctly, primer B is already reverse
+        Nucleotide[] bNucleotides = pB.getNucleotides();
+
+        int smallestArr = aNucleotides.length;
+        if(bNucleotides.length < aNucleotides.length) {
+            smallestArr = bNucleotides.length;
+        }
+
+        boolean found = false;
+        int shift = 0;
+        while(shift < smallestArr && !found) {
+            found = true;
+
+            for(int i = 0; i < smallestArr - shift; i++) {
+                Nucleotide a = aNucleotides[i+shift];
+                Nucleotide b = bNucleotides[i];
+
+                if(!a.pairsWith(b)) {
+                    found = false;
+                }
+            }
+            shift++;
+        }
+
+        if(found) {
+            return smallestArr - shift + 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Calculates the Intramolecular identity of two primers
+     * Intramolecular identity is the number of nucleotides that match to the two primers where the second primer
+     * is the initial primer is itself but in reverse
+     *
+     * Uses the calculation logic of intermolecular identity where the second primer is the initial primer in reverse
+     *
+     * @param p the forward primer
+     * @return Returns the number of nucleotides that matches to the end of the reverse primer
+     *
+     */
+    public int calculateIntramolecularIdentity(Primer p) {
+        return this.calculateIntermolecularIdentity(p, p.getReverse());
+    }
+
 }
