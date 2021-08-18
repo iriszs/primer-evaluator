@@ -14,31 +14,33 @@ public class PrimerEvaluator {
         InputHandler inputHandler = new InputHandler(name, age, fileLocation);
         inputHandler.printInput();
         InputHandler ih = new InputHandler(name, age, fileLocation);
-        ih.readFile();
+        String inputSequence = ih.readFile();
+        ih.isValid(inputSequence);
 
         // TODO for every sequence - create new primer object
         System.out.println("creating new primer object and reading the file");
         // Create new primer object while reading in the primer file
+
         Primer p = new Primer(ih.readFile());
         // Print the primers sequence
         p.getSequence();
         // Creating a new calculator object to calculate all characteristics of a primer
         Calculator cal = new Calculator();
         // Count individual bases and put in a hashmap
-        p.setBaseCount(cal.CountNucleotides(p.getBaseSequence()));
-        // Calculate GC percentage of primer using the individual base counts
+        p.setNucleotideCount(cal.CountNucleotides(p.getNucleotides()));
+        // Calculate GC percentage of primer using the individual nucleotide counts
         // and set result in primer object
-        p.setGcPercentage(cal.calculateGC(p.getBaseCount()));
+        p.setGcPercentage(cal.calculateGC(p.getNucleotideCount()));
         // print result
         p.getGcPercentage();
-        // Calculate melting temperature of the primer using the individual base counts
+        // Calculate melting temperature of the primer using the individual nucleotide counts
         // and set result in primer object
-        p.setMeltingTemp(cal.calculateMeltingTemp(p.getBaseCount()));
+        p.setMeltingTemp(cal.calculateMeltingTemp(p.getNucleotideCount()));
         // print result
         p.getMeltingTemp();
-        // Calculate the maximum homopolymer lenght in a hashmap using the individual base counts
+        // Calculate the maximum homopolymer lenght in a hashmap using the individual nucleotide counts
         // and set result in primer object
-        p.setHomopolymerLength(cal.calculateMaxHomopolymerLength(p.getBaseSequence()));
+        p.setHomopolymerLength(cal.calculateMaxHomopolymerLength(p.getNucleotides()));
         // print result
         p.getMaxHomopolymerLength();
         // Calculate the intermoleculair identity of the given primer

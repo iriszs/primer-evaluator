@@ -84,11 +84,11 @@ public class Primer {
         return this.baseSequence;
     }
 
-    public void setBaseCount(HashMap<Nucleotide, Integer> baseCount){
+    public void setNucleotideCount(HashMap<Nucleotide, Integer> baseCount){
         this.baseCount = baseCount;
     }
 
-    public HashMap<Nucleotide, Integer> getBaseCount() {
+    public HashMap<Nucleotide, Integer> getNucleotideCount() {
         return baseCount;
     }
 

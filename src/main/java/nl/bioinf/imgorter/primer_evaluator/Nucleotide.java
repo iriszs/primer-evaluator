@@ -34,15 +34,6 @@ public enum Nucleotide {
     }
 
     /**
-     * Check if a character pairs with the current nucleotide
-     * @param c The char
-     * @return Returns true if it pairs, false if it does not
-     */
-    public boolean pairsWith(char c) {
-        return c == this.pairsWith;
-    }
-
-    /**
      * Determines the complement string of a primer
      * Example: ATCG will become TAGC
      * @return Complement String of primer
@@ -51,7 +42,6 @@ public enum Nucleotide {
         return Nucleotide.fromChar(this.pairsWith);
 
     }
-
 
     /**
      * Get an instance of nucleotide from a character.
